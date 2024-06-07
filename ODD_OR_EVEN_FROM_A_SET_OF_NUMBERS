@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, num;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int *numbers = (int *)malloc(n * sizeof(int));
+
+    if (numbers == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+    printf("Enter %d numbers:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    for (i = 0; i < n; i++) {
+        num = numbers[i];
+        if (num % 2 == 0) {
+            printf("%d is even\n", num);
+        } else {
+            printf("%d is odd\n", num);
+        }
+    }
+
+    free(numbers);
+
+    return 0;
+}
