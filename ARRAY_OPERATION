@@ -1,0 +1,87 @@
+#include <stdio.h>
+#define MAX_SIZE 100 
+void insert(int arr[], int *size, int element, int position);
+void delete(int arr[], int *size, int position);
+void display(int arr[], int size);
+int main() {
+    int array[MAX_SIZE];
+    int size = 0;
+    int choice, element, position;
+    while(1) {
+        printf("\nArray Operations:\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch(choice) {
+            case 1:
+                if(size >= MAX_SIZE) {
+                    printf("Array is full. Cannot insert more elements.\n");
+                    break;
+                }
+                printf("Enter element to insert: ");
+                scanf("%d", &element);
+                printf("Enter position to insert (1 to %d): ", size + 1);
+                scanf("%d", &position);
+                if(position < 1 || position > size + 1) {
+                    printf("Invalid position! Please enter position between 1 to %d\n", size + 1);
+                } else {
+                    insert(array, &size, element, position - 1); 
+                }
+                break;
+            case 2:
+                if(size == 0) {
+                    printf("Array is empty. Cannot delete elements.\n");
+                    break;
+                }
+                printf("Enter position to delete (1 to %d): ", size);
+                scanf("%d", &position);
+                if(position < 1 || position > size) {
+                    printf("Invalid position! Please enter position between 1 to %d\n", size);
+                } else {
+                    delete(array, &size, position - 1); 
+                }
+                break;
+            case 3:
+                display(array, size);
+                break;
+            case 4:
+                printf("Exiting program.\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please enter a valid choice (1-4).\n");
+        }
+    }
+    return 0;
+}
+void insert(int arr[], int *size, int element, int position) {
+    int i;
+    for(i = *size; i > position; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[position] = element;
+    (*size)++;
+    printf("Element inserted successfully.\n");
+}
+void delete(int arr[], int *size, int position) {
+    int i;
+    for(i = position; i < *size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    (*size)--;
+    printf("Element deleted successfully.\n");
+}
+void display(int arr[], int size) {
+    int i;
+    if(size == 0) {
+        printf("Array is empty.\n");
+        return;
+    }
+    printf("Array elements: ");
+    for(i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
