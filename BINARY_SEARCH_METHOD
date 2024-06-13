@@ -1,0 +1,38 @@
+#include <stdio.h>
+int binarySearch(int arr[], int left, int right, int numberToFind);
+
+int main() {
+    int size, i, numberToFind, result;
+    printf("Enter the number of elements in the array: ");
+    scanf("%d", &size);
+
+    int arr[size]; 
+    printf("Enter %d elements in sorted order:\n", size);
+    for(i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+    printf("Enter the number to search for: ");
+    scanf("%d", &numberToFind);
+    result = binarySearch(arr, 0, size - 1, numberToFind);    if(result != -1) {
+        printf("Number found at index: %d\n", result);
+    } else {
+        printf("Number not found in the array.\n");
+    }
+
+    return 0;
+}
+int binarySearch(int arr[], int left, int right, int numberToFind) {
+    while(left <= right) {
+        int mid = left + (right - left) / 2;
+        if(arr[mid] == numberToFind) {
+            return mid;
+        }
+        if(arr[mid] < numberToFind) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
